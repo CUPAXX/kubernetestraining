@@ -1,16 +1,17 @@
+const express = require("express");
 const crypto = require("crypto");
 
-// using crypto js to generating random string
-const randomString = crypto.randomUUID();
+const app = express();
+const port = 3000;
+const startingString = crypto.randomUUID();
+const startingTimestamp = new Date().toISOString();
 
-// Function to print timestamp + stored string
-function printString() {
+app.get("/", (req, res) => {
   const timestamp = new Date().toISOString();
-  console.log(`${timestamp}: ${randomString}`);
-}
+  const currentString = crypto.randomUUID();
+  res.send(`Responding with ${timestamp}: ${currentString}`);
+});
 
-// Print every 5 seconds
-setInterval(printString, 5000);
-
-// Print immediately at the start
-printString();
+app.listen(port, () => {
+  console.log(`Started with ${startingTimestamp}: ${startingString}`);
+});
