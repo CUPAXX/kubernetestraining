@@ -10,3 +10,4 @@
 - [1.4.](https://github.com/CUPAXX/kubernetestraining/tree/1.4/todo-apps)
 - [1.5.](https://github.com/CUPAXX/kubernetestraining/tree/1.5/exercise-1.5)
 - [1.6.](https://github.com/CUPAXX/kubernetestraining/tree/1.6/todo-apps)
+- [1.7.](https://github.com/CUPAXX/kubernetestraining/tree/1.7/log_output)
