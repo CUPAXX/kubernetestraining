@@ -12,6 +12,17 @@ spec:
       labels:
         app: log-output
     spec:
-      containers:
+      volumes: # Define volume
         - name: log-output
-          image: cupaxxhd/log-output
+          emptyDir: {}
+      containers:
+        - name: log-output-reader
+          image: cupaxxhd/log-output-reader
+          volumeMounts: # Mount volume
+            - name: log-output
+              mountPath: /src/app/files
+        - name: log-output-writer
+          image: cupaxxhd/log-output-writer
+          volumeMounts: # Mount volume
+            - name: log-output
+              mountPath: /src/app/files
