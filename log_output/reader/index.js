@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 const directory = path.join("/", "src", "app", "files");
 const filePath = path.join(directory, "output.log");
-// const LOG_FILE = process.env.LOG_FILE || "/src/app/files/output.log";
+const counterFile = path.join(directory, "pingpong-count.txt");
 
 app.get("/", (req, res) => {
   fs.readFile(filePath, "utf8", (err, data) => {
@@ -17,8 +17,20 @@ app.get("/", (req, res) => {
       return res.status(500).send("Error reading log file");
     }
 
-    res.type("text/plain");
-    res.send(data);
+    // Read ping-pong counter
+    fs.readFile(counterFile, "utf8", (countErr, countData) => {
+      let pingPongCount = "0";
+      if (!countErr) {
+        pingPongCount = countData.trim();
+      }
+
+      // Get the last log entry
+      const lines = data.trim().split("\n");
+      const lastEntry = lines[lines.length - 1] || "";
+
+      res.type("text/plain");
+      res.send(`${lastEntry}\nPing / Pongs: ${pingPongCount}`);
+    });
   });
 });
 
