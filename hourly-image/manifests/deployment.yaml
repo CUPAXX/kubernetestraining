@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hourly-image
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hourly-image
+  template:
+    metadata:
+      labels:
+        app: hourly-image
+    spec:
+      volumes:
+        - name: shared-storage
+          persistentVolumeClaim:
+            claimName: hourly-image-pvc
+      containers:
+        - name: hourly-image
+          image: cupaxxhd/hourly-image
+          volumeMounts: # Mount volume
+            - name: shared-storage
+              mountPath: /src/app/files
