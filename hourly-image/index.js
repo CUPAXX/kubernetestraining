@@ -6,8 +6,8 @@ const fs = require("fs");
 const app = express();
 const port = 3000;
 
-const directory = path.join("/", "src", "app", "files"); // persistent volume path
-// const directory = path.join("./", "images"); // local path for testing
+// const directory = path.join("/", "src", "app", "files"); // persistent volume path
+const directory = path.join("./", "images"); // local path for testing
 const image_path = path.join(directory, "image.jpg");
 const meta_path = path.join(directory, "meta.json");
 
@@ -75,9 +75,18 @@ app.get("/", async (req, res) => {
     await downloadImage();
   }
 
+  const todo_list = ["Learn Javascript", "Learn React", "Build Project"];
+
   res.send(`
     <h1>Hourly Image</h1>
     <img src="/images/image.jpg?ts=${Date.now()}" width="400"/>
+    <div style="margin-top:30px; margin-bottom:10px;">
+        <input type="text" maxlength="140" id="todoinput" placeholder="Enter your todo"/>
+        <button id="todobutton">Create todo</button>
+    </div>
+    <ul id="todolist" style="margin-top:10px; margin-bottom:30px;">
+    ${todo_list.map((todo) => `<li>${todo}</li>`).join("")}
+    </ul>
     <h3>DevOps with Kubernetes 2025</h3>
   `);
 });
