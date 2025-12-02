@@ -6,8 +6,8 @@ const fs = require("fs");
 const app = express();
 const port = 3000;
 
-// const directory = path.join("/", "src", "app", "files"); // persistent volume path
-const directory = path.join("./", "images"); // local path for testing
+const directory = path.join("/", "src", "app", "files"); // persistent volume path
+// const directory = path.join("./", "images"); // local path for testing
 const image_path = path.join(directory, "image.jpg");
 const meta_path = path.join(directory, "meta.json");
 
