@@ -12,12 +12,17 @@ const image_path = path.join(directory, "image.jpg");
 const meta_path = path.join(directory, "meta.json");
 
 const IMAGE_URL = "https://picsum.photos/1200";
+// const TODO_SERVICE_URL = "http://localhost:3001"; //local testing
+const TODO_SERVICE_URL = "http://todo-apps-svc:2345"; //kubernetes service URL
 
 const expiredTime = 10 * 60 * 1000;
 // const expiredTime = 10 * 1000; //testing
 
 // Serve images folder
 app.use("/images", express.static(directory));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 const loadMeta = () => {
   if (!fs.existsSync(meta_path)) {
@@ -33,11 +38,7 @@ const saveMeta = (meta) => {
 const downloadImage = async () => {
   await fs.promises.mkdir(directory, { recursive: true });
 
-  const response = await axios({
-    url: IMAGE_URL,
-    method: "GET",
-    responseType: "stream",
-  });
+  const response = await axios.get(IMAGE_URL, { responseType: "stream" });
 
   await new Promise((resolve, reject) => {
     const writer = fs.createWriteStream(image_path);
@@ -54,6 +55,24 @@ const downloadImage = async () => {
   saveMeta(meta);
   console.log("New image downloaded");
 };
+
+const getTodos = async () => {
+  const response = await axios.get(`${TODO_SERVICE_URL}/todos`);
+  return response.data;
+};
+
+const addTodos = async (title) => {
+  try {
+    await axios.post(`${TODO_SERVICE_URL}/todos`, { title });
+  } catch (error) {
+    console.error("Error adding todo:", error.message);
+  }
+};
+
+app.post("/add-todo", async (req, res) => {
+  await addTodos(req.body.title);
+  res.json({ success: true });
+});
 
 app.get("/", async (req, res) => {
   const meta = loadMeta();
@@ -75,19 +94,42 @@ app.get("/", async (req, res) => {
     await downloadImage();
   }
 
-  const todo_list = ["Learn Javascript", "Learn React", "Build Project"];
+  const todo_list = await getTodos();
 
   res.send(`
-    <h1>Hourly Image</h1>
-    <img src="/images/image.jpg?ts=${Date.now()}" width="400"/>
-    <div style="margin-top:30px; margin-bottom:10px;">
-        <input type="text" maxlength="140" id="todoinput" placeholder="Enter your todo"/>
-        <button id="todobutton">Create todo</button>
-    </div>
-    <ul id="todolist" style="margin-top:10px; margin-bottom:30px;">
-    ${todo_list.map((todo) => `<li>${todo}</li>`).join("")}
-    </ul>
-    <h3>DevOps with Kubernetes 2025</h3>
+    <!DOCTYPE html>
+      <html lang="en">
+      <head>
+          <meta charset="UTF-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Hourly Image</title>
+      </head>
+      <body>
+        <h1>Hourly Image</h1>
+        <img src="/images/image.jpg?ts=${Date.now()}" width="400"/>
+        <div style="margin-top:30px; margin-bottom:10px;">
+            <input type="text" maxlength="140" id="todoinput" placeholder="Enter your todo"/>
+            <button id="todobutton" onclick="submitTodo()" >Create todo</button>
+        </div>
+        <ul id="todolist" style="margin-top:10px; margin-bottom:30px;">
+        ${todo_list.map((todo) => `<li>${todo}</li>`).join("")}
+        </ul>
+        <h3>DevOps with Kubernetes 2025</h3>
+
+        <script>
+          async function submitTodo() {
+           const title = document.getElementById("todoinput").value.trim();
+           if(!title) return;
+           await fetch("/add-todo", {
+             method: "POST",
+             headers: { "Content-Type": "application/json" },
+             body: JSON.stringify({ title })
+           });
+           window.location.reload();
+          }
+        </script>
+      </body>
+      </html>
   `);
 });
 
