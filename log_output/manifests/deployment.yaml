@@ -21,8 +21,8 @@ spec:
           volumeMounts: # Mount volume
             - name: log-output
               mountPath: /src/app/files
-        - name: log-output-writer
-          image: cupaxxhd/log-output-writer
-          volumeMounts: # Mount volume
-            - name: log-output
-              mountPath: /src/app/files
+        # - name: log-output-writer
+        #   image: cupaxxhd/log-output-writer
+        #   volumeMounts: # Mount volume
+        #     - name: log-output
+        #       mountPath: /src/app/files
