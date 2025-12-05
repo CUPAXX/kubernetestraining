@@ -23,18 +23,17 @@ spec:
         - name: log-output-reader
           image: cupaxxhd/log-output-reader
           env: # Set environment variable from ConfigMap
-            - name: MESSGAE
+            - name: MESSAGE
               valueFrom:
                 configMapKeyRef:
                   name: log-output-config
-                  key: MESSGAE
+                  key: MESSAGE
           volumeMounts: # Mount volume
             - name: log-output
               mountPath: /src/app/files
 
             - name: config-volume
-              mountPath: /src/app/files/information.txt
-              subPath: information.txt
+              mountPath: /src/app/config
               readOnly: true
         # - name: log-output-writer
         #   image: cupaxxhd/log-output-writer
