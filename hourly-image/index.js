@@ -4,16 +4,17 @@ const path = require("path");
 const fs = require("fs");
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const directory = path.join("/", "src", "app", "files"); // persistent volume path
 // const directory = path.join("./", "images"); // local path for testing
 const image_path = path.join(directory, "image.jpg");
 const meta_path = path.join(directory, "meta.json");
 
-const IMAGE_URL = "https://picsum.photos/1200";
+const IMAGE_URL = process.env.IMAGE_URL || "No image url set";
 // const TODO_SERVICE_URL = "http://localhost:3001"; //local testing
-const TODO_SERVICE_URL = "http://todo-apps-svc:2345"; //kubernetes service URL
+const TODO_SERVICE_URL =
+  process.env.TODO_SERVICE_URL || "No TODO service url set"; //kubernetes service URL
 
 const expiredTime = 10 * 60 * 1000;
 // const expiredTime = 10 * 1000; //testing

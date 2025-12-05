@@ -20,6 +20,23 @@ spec:
       containers:
         - name: hourly-image
           image: cupaxxhd/hourly-image
+          env: # Set environment variable from ConfigMap
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: hourly-image-config
+                  key: PORT
+            - name: IMAGE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: hourly-image-config
+                  key: IMAGE_URL
+            - name: TODO_SERVICE_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: hourly-image-config
+                  key: TODO_SERVICE_URL
+
           volumeMounts: # Mount volume
             - name: shared-storage
               mountPath: /src/app/files
