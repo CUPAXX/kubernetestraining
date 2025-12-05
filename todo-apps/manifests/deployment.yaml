@@ -9,6 +9,8 @@ spec:
       app: todo-apps
   template:
     metadata:
+      namespace: project
+      name: todo-apps
       labels:
         app: todo-apps
     spec:

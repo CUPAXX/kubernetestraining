@@ -9,6 +9,8 @@ spec:
       app: hourly-image
   template:
     metadata:
+      namespace: project
+      name: hourly-image
       labels:
         app: hourly-image
     spec:
