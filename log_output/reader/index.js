@@ -1,13 +1,17 @@
 const express = require("express");
 const axios = require("axios");
 const crypto = require("crypto");
-
-// const fs = require("fs");
-// const path = require("path");
+const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const port = 3000;
+
+const directory = path.join("/", "src", "app", "files");
+const infoFile = path.join(directory, "information.txt");
 const PING_PONG_SERVICE_URL = "http://ping-pong-svc:2345";
+const MESSAGE = process.env.MESSGAE || "No message set";
+const INFORMATION = fs.readFileSync(infoFile, "utf8");
 
 app.get("/", async (req, res) => {
   const response = await axios.get(`${PING_PONG_SERVICE_URL}/pingpong`);
@@ -16,13 +20,14 @@ app.get("/", async (req, res) => {
 
   res.type("text/plain");
   res.send(`
+    file content: ${INFORMATION}.\n
+    env variable: MESSAGE=${MESSAGE}.\n
     ${timestamp}: ${currentString}.\n
     Ping / Pongs: ${response.data.count}
     `);
 });
 
 /* OLD CODE */
-// const directory = path.join("/", "src", "app", "files");
 // const filePath = path.join(directory, "output.log");
 // const counterFile = path.join(directory, "pingpong-count.txt");
 

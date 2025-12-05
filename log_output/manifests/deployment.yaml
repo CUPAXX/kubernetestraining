@@ -16,12 +16,26 @@ spec:
       volumes: # Define volume
         - name: log-output
           emptyDir: {}
+        - name: config-volume # Define ConfigMap volume
+          configMap:
+            name: log-output-config
       containers:
         - name: log-output-reader
           image: cupaxxhd/log-output-reader
+          env: # Set environment variable from ConfigMap
+            - name: MESSGAE
+              valueFrom:
+                configMapKeyRef:
+                  name: log-output-config
+                  key: MESSGAE
           volumeMounts: # Mount volume
             - name: log-output
               mountPath: /src/app/files
+
+            - name: config-volume
+              mountPath: /src/app/files/information.txt
+              subPath: information.txt
+              readOnly: true
         # - name: log-output-writer
         #   image: cupaxxhd/log-output-writer
         #   volumeMounts: # Mount volume
