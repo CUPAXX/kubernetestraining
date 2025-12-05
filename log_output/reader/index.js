@@ -10,7 +10,7 @@ const port = 3000;
 const directory = path.join("/", "src", "app");
 const infoFile = path.join(directory, "config", "information.txt");
 const PING_PONG_SERVICE_URL = "http://ping-pong-svc:2345";
-const MESSAGE = process.env.MESSGAE || "No message set";
+const MESSAGE = process.env.MESSAGE || "No message set";
 const INFORMATION = fs.readFileSync(infoFile, "utf8");
 
 app.get("/", async (req, res) => {
