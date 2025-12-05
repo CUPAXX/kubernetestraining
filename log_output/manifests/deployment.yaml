@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: exercises
   name: log-output
 spec:
   replicas: 1
@@ -9,8 +10,6 @@ spec:
       app: log-output
   template:
     metadata:
-      namespace: exercises
-      name: log-output
       labels:
         app: log-output
     spec:

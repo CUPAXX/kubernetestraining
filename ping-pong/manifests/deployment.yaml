@@ -1,6 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  namespace: exercises
   name: ping-pong
 spec:
   replicas: 1
@@ -9,8 +10,6 @@ spec:
       app: ping-pong
   template:
     metadata:
-      namespace: exercises
-      name: ping-pong
       labels:
         app: ping-pong
     spec:
