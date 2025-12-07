@@ -16,3 +16,10 @@ spec:
       containers:
         - name: ping-pong
           image: cupaxxhd/ping-pong
+          ports:
+            - containerPort: 3002
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+            - secretRef:
+                name: postgres-secret
