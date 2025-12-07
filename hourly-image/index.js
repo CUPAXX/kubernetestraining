@@ -113,7 +113,7 @@ app.get("/", async (req, res) => {
             <button id="todobutton" onclick="submitTodo()" >Create todo</button>
         </div>
         <ul id="todolist" style="margin-top:10px; margin-bottom:30px;">
-        ${todo_list.map((todo) => `<li>${todo}</li>`).join("")}
+        ${todo_list.map((todo) => `<li>${todo.title}</li>`).join("")}
         </ul>
         <h3>DevOps with Kubernetes 2025</h3>
 

@@ -38,7 +38,7 @@ kubectl run -it --rm \
   --namespace exercises \
   --image=postgres \
   psql-test -- \
-  psql -h postgres -U postgres -d pingpong
+  psql postgres://postgres:postgres@postgres:5432/pingpong
 
 
 CREATE TABLE IF NOT EXISTS counter (

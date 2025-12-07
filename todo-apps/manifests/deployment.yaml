@@ -15,4 +15,9 @@ spec:
     spec:
       containers:
         - name: todo-apps
-          image: cupaxxhd/todo-apps
+          image: cupaxxhd/todo-apps #docker image for todo-apps get from docker hub
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+            - secretRef:
+                name: postgres-secret
