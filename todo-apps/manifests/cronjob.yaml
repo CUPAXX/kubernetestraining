@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: todo-cronjob
+  namespace: project
+spec:
+  schedule: "0 * * * *" #"* * * * *" # every 1 minute
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: todo-cronjob
+              image: curlimages/curl:8.6.0
+              command:
+                - /bin/sh
+                - -c
+                - |
+                  set -e
+
+                  echo "Fetching random Wikipedia article..."
+
+                  RANDOM_URL=$(curl -s -I https://en.wikipedia.org/wiki/Special:Random \
+                    | grep -i location \
+                    | awk '{print $2}' \
+                    | tr -d '\r')
+
+                  echo "Random URL: $RANDOM_URL"
+
+                  curl -s -X POST http://todo-apps-svc:2345/todos \
+                    -H "Content-Type: application/json" \
+                    -d "{\"title\":\"Read $RANDOM_URL\"}"
+
+                  echo "Todo created"

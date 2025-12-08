@@ -2,7 +2,7 @@
 
 DevOps With Kubernetes Training
 
-- Chapter 3 Submission 8
+- Chapter 3 Submission 9
 
 ## First install dependency:
 
@@ -69,3 +69,13 @@ kubectl apply -f manifests/ingress.yaml
 ```bash
 http://localhost:8081
 ```
+
+## Change Logs
+
+All notable changes to this project will be documented in this section
+
+### [2.9] 2025-12-08
+
+**[ADDED]**
+
+- Cronjob.yaml
