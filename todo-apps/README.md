@@ -74,6 +74,13 @@ http://localhost:8081
 
 All notable changes to this project will be documented in this section
 
+### [2.10] 2025-12-08
+
+**[UPDATE]**
+
+- add validation max 140 character todo
+- add logger morgan
+
 ### [2.9] 2025-12-08
 
 **[ADDED]**
