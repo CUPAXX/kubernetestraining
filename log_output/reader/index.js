@@ -21,7 +21,7 @@ app.get("/", (req, res) => {
 
 app.get("/pingpong", async (req, res) => {
   try {
-    const response = await axios.get(`${PING_PONG_SERVICE_URL}/pingpong`);
+    const response = await axios.get(`${PING_PONG_SERVICE_URL}/`);
     const timestamp = new Date().toISOString();
     const currentString = crypto.randomUUID();
 
