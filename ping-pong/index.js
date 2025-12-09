@@ -26,7 +26,7 @@ app.get("/pingpong", async (req, res) => {
   try {
     await db.query("SELECT 1");
     console.log("DB ready");
-    app.listen(port, () => console.log(`Server started on ${port}`));
+    app.listen(port, "0.0.0.0", () => console.log(`Server started on ${port}`));
   } catch (err) {
     console.error("DB not ready", err);
     process.exit(1);

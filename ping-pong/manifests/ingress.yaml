@@ -4,9 +4,9 @@ metadata:
   namespace: exercises
   name: ping-pong-ingress
 spec:
+  ingressClassName: gce
   rules:
-    - host: localhost
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix

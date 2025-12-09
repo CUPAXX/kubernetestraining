@@ -9,22 +9,33 @@ const port = 3000;
 
 const directory = path.join("/", "src", "app");
 const infoFile = path.join(directory, "config", "information.txt");
-const PING_PONG_SERVICE_URL = "http://ping-pong-svc:2345";
+const PING_PONG_SERVICE_URL = "http://ping-pong-svc:2345"; //local dev
+// const PING_PONG_SERVICE_URL =
+//   "http://ping-pong-svc.exercises.svc.cluster.local:2345"; //GKE deployment
 const MESSAGE = process.env.MESSAGE || "No message set";
 const INFORMATION = fs.readFileSync(infoFile, "utf8");
 
-app.get("/", async (req, res) => {
-  const response = await axios.get(`${PING_PONG_SERVICE_URL}/pingpong`);
-  const timestamp = new Date().toISOString();
-  const currentString = crypto.randomUUID();
+app.get("/", (req, res) => {
+  res.send("Log-output-reader-apps Backend!");
+});
 
-  res.type("text/plain");
-  res.send(`
-    file content: ${INFORMATION}.\n
-    env variable: MESSAGE=${MESSAGE}.\n
-    ${timestamp}: ${currentString}.\n
-    Ping / Pongs: ${response.data.count}
-    `);
+app.get("/pingpong", async (req, res) => {
+  try {
+    const response = await axios.get(`${PING_PONG_SERVICE_URL}/pingpong`);
+    const timestamp = new Date().toISOString();
+    const currentString = crypto.randomUUID();
+
+    res.type("text/plain");
+    res.send(`
+      file content: ${INFORMATION}.\n
+      env variable: MESSAGE=${MESSAGE}.\n
+      ${timestamp}: ${currentString}.\n
+      Ping / Pongs: ${response.data.count}
+      `);
+  } catch (error) {
+    console.error(err.message);
+    res.status(500).send(`Ping-pong API error: ${err.message}`);
+  }
 });
 
 /* OLD CODE */
@@ -54,6 +65,6 @@ app.get("/", async (req, res) => {
 // });
 // });
 
-app.listen(port, () => {
+app.listen(port, "0.0.0.0", () => {
   console.log(`Reader app listening on port ${port}`);
 });

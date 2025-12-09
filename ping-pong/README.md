@@ -50,6 +50,8 @@ INSERT INTO counter (id, value)
 VALUES (1, 0)
 ON CONFLICT DO NOTHING;
 
+SELECT * FROM counter;
+
 
 exit
 ```

@@ -3,10 +3,14 @@ kind: Ingress
 metadata:
   namespace: exercises
   name: log-output-ingress
+  annotations:
+    # If the class annotation is not specified it defaults to "gce".
+    # gce: external load balancer
+    # gce-internal: internal load balancer
+    kubernetes.io/ingress.class: "gce"
 spec:
   rules:
-    - host: localhost
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
