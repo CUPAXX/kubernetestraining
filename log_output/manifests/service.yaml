@@ -3,11 +3,13 @@ kind: Service
 metadata:
   namespace: exercises
   name: log-output-svc
+  annotations:
+    cloud.google.com/neg: '{"exposed_ports": {"80":{}}}'
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: log-output # This is the app as declared in the deployment.
   ports:
-    - port: 2345
+    - port: 80
       protocol: TCP
       targetPort: 3000
