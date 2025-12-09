@@ -2,7 +2,7 @@
 
 DevOps With Kubernetes Training
 
-- Chapter 3 Submission 7
+- Chapter 4 Submission 1
 
 ## First install dependency:
 
@@ -27,7 +27,7 @@ docker push {dockerhub_username}/{project_name}
 # Kubernetes command
 kubectl apply -f manifests/postgres-secret.yaml
 kubectl apply -f manifests/postgres-stful.yaml
-kubectl apply -f manifests/postgres-stful.yaml
+kubectl apply -f manifests/postgres-service.yaml
 ```
 
 ## Create table
@@ -59,8 +59,8 @@ exit
 ```bash
 kubectl apply -f manifests/configmap.yaml
 kubectl apply -f manifests/deployment.yaml
-kubectl apply -f manifests/ingress.yaml
 kubectl apply -f manifests/service.yaml
+kubectl apply -f manifests/ingress.yaml
 ```
 
 ### Access it with
@@ -68,3 +68,13 @@ kubectl apply -f manifests/service.yaml
 ```bash
 http://localhost:8081
 ```
+
+## Change Logs
+
+All notable changes to this project will be documented in this section
+
+### [3.1] 2025-12-09
+
+**[UPDATE]**
+
+- migrate to gcp cluster
