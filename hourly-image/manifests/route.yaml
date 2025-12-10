@@ -1,0 +1,16 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  namespace: project
+  name: hourly-image-route
+spec:
+  parentRefs:
+    - name: hourly-image-gateway
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: hourly-image-svc
+          port: 80

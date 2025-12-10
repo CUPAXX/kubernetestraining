@@ -27,7 +27,7 @@ docker push {dockerhub_username}/{project_name}
 # Kubernetes command
 kubectl apply -f manifests/postgres-secret.yaml
 kubectl apply -f manifests/postgres-stful.yaml
-kubectl apply -f manifests/postgres-stful.yaml
+kubectl apply -f manifests/postgres-service.yaml
 ```
 
 ## Create table
