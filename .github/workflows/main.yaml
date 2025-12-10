@@ -12,6 +12,7 @@ env:
   IMAGE: hourly-image
   DEPLOYMENT_NAME: hourly-image
   BRANCH: ${{ github.ref_name }}
+  NAMESPACE: ${{ github.ref_name == 'main' && 'project' || github.ref_name }}
 
 jobs:
   build-publish-deploy:
@@ -62,7 +63,18 @@ jobs:
       - name: Deploy
         working-directory: hourly-image
         run: |-
+          # Determine namespace
+          if [ "$BRANCH" == "main" ]; then
+            NAMESPACE="project"
+          else
+            NAMESPACE="$BRANCH"
+          fi
+          echo "Deploying to namespace: $NAMESPACE"
+          
+          kubectl get namespace $NAMESPACE || kubectl create namespace $NAMESPACE
+          kubectl config set-context --current --namespace=$NAMESPACE
+          kustomize edit set namespace $NAMESPACE
           kustomize edit set image cupaxxhd/hourly-image=$IMAGE_TAG 
-          kustomize build . | kubectl apply -n project -f -
-          kubectl rollout status deployment $DEPLOYMENT_NAME -n project
-          kubectl get services -n project -o wide
+          kustomize build . | kubectl apply -n $NAMESPACE -f -
+          kubectl rollout status deployment $DEPLOYMENT_NAME -n $NAMESPACE
+          kubectl get services -n $NAMESPACE -o wide
