@@ -6,9 +6,13 @@ on:
 jobs:
   delete-namespace:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Debug delete event
+        run: |
+          echo "ref_name: ${{ github.ref_name }}"
+          echo "event.ref: ${{ github.event.ref }}"
+          echo "event.ref_type: ${{ github.event.ref_type }}"
 
       - name: Authenticate with GCP
         uses: google-github-actions/auth@v2
@@ -30,15 +34,21 @@ jobs:
           project_id: ${{ secrets.GKE_PROJECT }}
           location: asia-southeast2
 
-      - name: Delete branch namespace
+      - name: Delete namespace
         run: |
-          # Determine the namespace
-          BRANCH_NAME="${{ github.ref_name }}"
-
-          # Do not delete default branch namespace
-          if [ "$BRANCH_NAME" != "master" ]; then
-            echo "Deleting namespace: $BRANCH_NAME"
-            kubectl delete namespace "$BRANCH_NAME" || echo "Namespace $BRANCH_NAME not found"
-          else
-            echo "Default branch namespace 'project' will not be deleted"
+          # Only act on branch deletion
+          if [ "${{ github.event.ref_type }}" != "branch" ]; then
+            echo "Not a branch deletion, skipping"
+            exit 0
           fi
+
+          DELETED_BRANCH="${{ github.event.ref }}"
+
+          # Protect default branch
+          if [ "$DELETED_BRANCH" = "master" ]; then
+            echo "Skipping deletion of master/project namespace"
+            exit 0
+          fi
+
+          echo "Deleting namespace: $DELETED_BRANCH"
+          kubectl delete namespace "$DELETED_BRANCH" || echo "Namespace not found"
