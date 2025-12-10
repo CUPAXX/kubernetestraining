@@ -33,3 +33,55 @@ kubectl apply -f manifests/service.yaml
 ```bash
 http://localhost:8081
 ```
+
+## Chapter 4 Submission 9
+
+DBaaS vs DIY
+
+## Answer
+
+## Database Options Comparison
+
+There are two main ways to use PostgreSQL in Google Kubernetes Engine (GKE):
+
+1. Using Google Cloud SQL (DBaaS)
+2. Running PostgreSQL in Kubernetes using PersistentVolumeClaims (PVC)
+
+---
+
+### Google Cloud SQL (DBaaS)
+
+**Pros:**
+
+- Easy and fast to set up
+- Google handles updates, backups, and availability
+- Automatic backups and recovery
+
+**Cons:**
+
+- More expensive
+- Less control over configuration
+- Google Cloud specific
+
+---
+
+### PostgreSQL on GKE with PVC
+
+**Pros:**
+
+- Cheaper
+- Full control of PostgreSQL settings
+- Good for learning Kubernetes
+
+**Cons:**
+
+- More setup and maintenance required
+- Backups must be done manually
+- Higher risk if misconfigured
+
+---
+
+### Summary
+
+Cloud SQL is simpler and safer but costs more.  
+Running PostgreSQL in GKE is cheaper and flexible but needs more work and maintenance.
