@@ -16,6 +16,7 @@ spec:
       containers:
         - name: ping-pong
           image: cupaxxhd/ping-pong
+          imagePullPolicy: Always
           ports:
             - containerPort: 3002
           envFrom:
@@ -23,3 +24,9 @@ spec:
                 name: postgres-config
             - secretRef:
                 name: postgres-secret
+          readinessProbe:
+            initialDelaySeconds: 10 # Initial delay until the readiness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+              path: /ready
+              port: 3002

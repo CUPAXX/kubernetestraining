@@ -35,6 +35,13 @@ spec:
             - name: config-volume
               mountPath: /src/app/config
               readOnly: true
+          readinessProbe:
+            httpGet:
+              path: /pingpong
+              port: 3000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            failureThreshold: 3
         # - name: log-output-writer
         #   image: cupaxxhd/log-output-writer
         #   volumeMounts: # Mount volume
