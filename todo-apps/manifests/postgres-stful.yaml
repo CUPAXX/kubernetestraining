@@ -28,13 +28,13 @@ spec:
           volumeMounts:
             - name: pgdata
               mountPath: /var/lib/postgresql/data
-          resources:
-            requests:
-              cpu: "50m"
-              memory: "128Mi"
-            limits:
-              cpu: "250m"
-              memory: "256Mi"
+          # resources:
+          #   requests:
+          #     cpu: "50m"
+          #     memory: "128Mi"
+          #   limits:
+          #     cpu: "250m"
+          #     memory: "256Mi"
   volumeClaimTemplates:
     - metadata:
         name: pgdata
