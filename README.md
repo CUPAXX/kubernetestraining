@@ -42,3 +42,4 @@
 - [3.7.](https://github.com/CUPAXX/kubernetestraining/tree/3.7/hourly-image)
 - [3.8.](https://github.com/CUPAXX/kubernetestraining/tree/3.8/hourly-image)
 - [3.9.](https://github.com/CUPAXX/kubernetestraining/tree/3.9/hourly-image)
+- [3.10.](https://github.com/CUPAXX/kubernetestraining/tree/3.10/todo-apps)
