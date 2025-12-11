@@ -1,7 +1,7 @@
 name: Release application
 
 on:
-  pushss:
+  push:
 
 env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
