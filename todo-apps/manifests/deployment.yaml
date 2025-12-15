@@ -16,6 +16,7 @@ spec:
       containers:
         - name: todo-apps
           image: cupaxxhd/todo-apps #docker image for todo-apps get from docker hub
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: postgres-config
@@ -28,3 +29,9 @@ spec:
           #   limits:
           #     cpu: "100m"
           #     memory: "64Mi"
+          readinessProbe:
+            initialDelaySeconds: 10 # Initial delay until the readiness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+              path: /todos
+              port: 3001

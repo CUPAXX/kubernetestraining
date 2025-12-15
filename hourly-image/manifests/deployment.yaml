@@ -42,3 +42,9 @@ spec:
           volumeMounts: # Mount volume
             - name: shared-storage
               mountPath: /src/app/files
+          readinessProbe:
+            initialDelaySeconds: 10 # Initial delay until the readiness is tested
+            periodSeconds: 5 # How often to test
+            httpGet:
+              path: /
+              port: 3000
