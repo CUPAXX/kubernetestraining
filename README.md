@@ -52,3 +52,4 @@
 - [4.2.](https://github.com/CUPAXX/kubernetestraining/tree/4.2/hourly-image)
 - [4.3.](https://github.com/CUPAXX/kubernetestraining/tree/4.3/exercise_4-3)
 - [4.4.](https://github.com/CUPAXX/kubernetestraining/tree/4.4/ping-pong)
+- [4.5.](https://github.com/CUPAXX/kubernetestraining/tree/4.5/hourly-image)

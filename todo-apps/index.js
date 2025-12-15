@@ -20,7 +20,17 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/todos", async (req, res) => {
   try {
-    const result = await db.query("SELECT * FROM todo");
+    const result = await db.query("SELECT * FROM todo WHERE status='active'");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error");
+  }
+});
+
+app.get("/todos-done", async (req, res) => {
+  try {
+    const result = await db.query("SELECT * FROM todo WHERE status='inactive'");
     res.json(result.rows);
   } catch (err) {
     console.error(err);
@@ -49,6 +59,24 @@ app.post("/todos", async (req, res) => {
     if (result.rowCount > 0) {
       console.log("New Todo added", { title });
       res.status(200).json({ message: "Todo added" });
+    }
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error");
+  }
+});
+
+app.put("/todos/:id", async (req, res) => {
+  let id = req.params.id;
+  let status = req.body.status;
+
+  try {
+    const result = await db.query(
+      `UPDATE todo SET status='${status}' WHERE id=${id}`
+    );
+    if (result.rowCount > 0) {
+      console.log("Todo updated with id: ", { id });
+      res.status(200).json({ message: "Todo status set to inactive (done)" });
     }
   } catch (err) {
     console.error(err);

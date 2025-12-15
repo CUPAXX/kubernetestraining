@@ -57,8 +57,13 @@ const downloadImage = async () => {
   console.log("New image downloaded");
 };
 
-const getTodos = async () => {
+const getActiveTodo = async () => {
   const response = await axios.get(`${TODO_SERVICE_URL}/todos`);
+  return response.data;
+};
+
+const getInactiveTodo = async () => {
+  const response = await axios.get(`${TODO_SERVICE_URL}/todos-done`);
   return response.data;
 };
 
@@ -70,8 +75,22 @@ const addTodos = async (title) => {
   }
 };
 
+const markAsDone = async (id) => {
+  try {
+    await axios.put(`${TODO_SERVICE_URL}/todos/${id}`, { status: "inactive" });
+  } catch (error) {
+    console.error("Error adding todo:", error.message);
+  }
+};
+
 app.post("/add-todo", async (req, res) => {
   await addTodos(req.body.title);
+  res.json({ success: true });
+});
+
+app.post("/mark-as-done", async (req, res) => {
+  console.log("Marking as done:", req.body.id);
+  await markAsDone(req.body.id);
   res.json({ success: true });
 });
 
@@ -95,7 +114,8 @@ app.get("/", async (req, res) => {
     await downloadImage();
   }
 
-  const todo_list = await getTodos();
+  const active_todo = await getActiveTodo();
+  const inactive_todo = await getInactiveTodo();
 
   res.send(`
     <!DOCTYPE html>
@@ -112,9 +132,25 @@ app.get("/", async (req, res) => {
             <input type="text" maxlength="140" id="todoinput" placeholder="Enter your todo"/>
             <button id="todobutton" onclick="submitTodo()" >Create todo</button>
         </div>
-        <ul id="todolist" style="margin-top:10px; margin-bottom:30px;">
-        ${todo_list.map((todo) => `<li>${todo.title}</li>`).join("")}
+        <h4>Todo</h4>
+        <ul id="todolist" style="margin-top:10px; margin-bottom:30px; ">
+        ${active_todo
+          .map(
+            (todo) => `
+        <li>
+          <span>${todo.title}</span>
+          <button id="markasdone" onclick="markAsDone(${todo.id})">Mark as Done</button>
+        </li>
+        `
+          )
+          .join("")}
         </ul>
+        <br/>
+        <h4>Done</h4>
+        <ul id="todolist" style="margin-top:10px; margin-bottom:30px;">
+        ${inactive_todo.map((todo) => `<li>${todo.title}</li>`).join("")}
+        </ul>
+
         <h3>DevOps with Kubernetes 2025</h3>
 
         <script>
@@ -127,6 +163,15 @@ app.get("/", async (req, res) => {
              body: JSON.stringify({ title })
            });
            window.location.reload();
+          }
+
+          async function markAsDone(id) {
+            await fetch("/mark-as-done", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ id })
+            })
+            window.location.reload();
           }
         </script>
       </body>

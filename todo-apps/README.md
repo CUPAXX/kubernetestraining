@@ -43,7 +43,8 @@ kubectl run -it --rm \
 
 CREATE TABLE IF NOT EXISTS todo (
   id INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  title TEXT NOT NULL
+  title TEXT NOT NULL,
+  status TEXT NOT NULL DEFAULT 'active'
 );
 
 INSERT INTO todo (title)
