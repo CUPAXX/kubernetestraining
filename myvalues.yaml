@@ -1,0 +1,21 @@
+auth:
+  enabled: false
+
+image:
+  registry: docker.io
+  repository: nats
+  tag: 2.11.8
+
+metrics:
+  enabled: true
+  image:
+    registry: docker.io
+    repository: natsio/prometheus-nats-exporter
+    tag: 0.15.0
+  serviceMonitor:
+    enabled: true
+    namespace: prometheus
+
+global:
+  security:
+    allowInsecureImages: true

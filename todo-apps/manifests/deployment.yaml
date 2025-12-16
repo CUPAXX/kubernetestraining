@@ -22,6 +22,9 @@ spec:
                 name: postgres-config
             - secretRef:
                 name: postgres-secret
+          env:
+            - name: NATS_URL
+              value: nats://my-nats.default.svc.cluster.local:4222
           # resources:
           #   requests:
           #     cpu: "10m"
