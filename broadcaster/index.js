@@ -14,7 +14,6 @@ const sc = StringCodec();
   const nc = await connect({ servers: NATS_URL });
   console.log("Broadcaster connected to NATS");
 
-  // ✅ Queue subscription (CRITICAL)
   const sub = nc.subscribe("todos.events", {
     queue: "telegram-broadcaster",
   });
