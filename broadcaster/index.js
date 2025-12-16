@@ -14,7 +14,10 @@ const sc = StringCodec();
   const nc = await connect({ servers: NATS_URL });
   console.log("Broadcaster connected to NATS");
 
-  const sub = nc.subscribe("todos.events");
+  // ✅ Queue subscription (CRITICAL)
+  const sub = nc.subscribe("todos.events", {
+    queue: "telegram-broadcaster",
+  });
 
   for await (const msg of sub) {
     const payload = JSON.parse(sc.decode(msg.data));
@@ -26,7 +29,10 @@ const sc = StringCodec();
 
     try {
       await axios.post(TELEGRAM_API, telegramPayload);
-      console.log("Sent to Telegram:", telegramPayload.text);
+      console.log(
+        `Handled by pod ${process.env.HOSTNAME}:`,
+        telegramPayload.text
+      );
     } catch (err) {
       console.error("Telegram send failed:", err.message);
     }
