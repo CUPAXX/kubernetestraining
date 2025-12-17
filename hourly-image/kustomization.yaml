@@ -11,4 +11,4 @@ resources:
 images:
 - name: PROJECT/IMAGE
   newName: cupaxxhd/hourly-image
-  newTag: cfd8ffe028efae2ccb4e44502cac413d1063fa57
+  newTag: e2fc63af137a8d6f555540f963af62b47b1fbc20
