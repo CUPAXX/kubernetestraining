@@ -21,7 +21,7 @@ spec:
             claimName: hourly-image-pvc
       containers:
         - name: hourly-image
-          image: cupaxxhd/hourly-image
+          image: PROJECT/IMAGE
           env: # Set environment variable from ConfigMap
             - name: PORT
               valueFrom:

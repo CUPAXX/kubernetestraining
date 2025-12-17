@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: broadcaster
-          image: cupaxxhd/broadcaster
+          image: PROJECT/IMAGE
           env:
             - name: NATS_URL
               value: nats://my-nats.default.svc.cluster.local:4222

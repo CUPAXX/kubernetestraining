@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: todo-apps
-          image: cupaxxhd/todo-apps #docker image for todo-apps get from docker hub
+          image: PROJECT/IMAGE #docker image for todo-apps get from docker hub
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
