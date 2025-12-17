@@ -30,7 +30,7 @@ jobs:
 
       - name: Use right image
         run: kustomize edit set image PROJECT/IMAGE=cupaxxhd/log-output-reader:$GITHUB_SHA
-        working-directory: log_output/reader
+        working-directory: log_output
 
       - name: commit kustomization.yaml to GitHub
         uses: EndBug/add-and-commit@v9
