@@ -58,10 +58,10 @@ app.post("/todos", async (req, res) => {
       `INSERT INTO todo (title) VALUES ('${title}')`
     );
     if (result.rowCount > 0) {
-      // await publish("todos.events", {
-      //   user: "bot",
-      //   message: `A todo was created: ${title}`,
-      // });
+      await publish("todos.events", {
+        user: "bot",
+        message: `A todo was created: ${title}`,
+      });
       console.log("New Todo added", { title });
       res.status(200).json({ message: "Todo added" });
     }
@@ -80,10 +80,10 @@ app.put("/todos/:id", async (req, res) => {
       `UPDATE todo SET status='${status}' WHERE id=${id}`
     );
     if (result.rowCount > 0) {
-      // await publish("todos.events", {
-      //   user: "bot",
-      //   message: `Todo ${id} was marked as ${status}`,
-      // });
+      await publish("todos.events", {
+        user: "bot",
+        message: `Todo ${id} was marked as ${status}`,
+      });
       console.log("Todo updated with id: ", { id });
       res.status(200).json({ message: "Todo status set to inactive (done)" });
     }
