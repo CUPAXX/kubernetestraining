@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - postgres-secret.yaml
+  - postgres-stful.yaml
+  - postgres-service.yaml
+  - configmap.yaml
+  - deployment.yaml
+  - service.yaml
+sortOptions:
+  order: fifo
+images:
+  - name: PROJECT/IMAGE
+    newName: cupaxxhd/todo-apps
+    newTag: f01053a0c17d83c771db8727d7e908088de11c3f
