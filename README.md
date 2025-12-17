@@ -54,3 +54,4 @@
 - [4.4.](https://github.com/CUPAXX/kubernetestraining/tree/4.4/ping-pong)
 - [4.5.](https://github.com/CUPAXX/kubernetestraining/tree/4.5/hourly-image)
 - [4.6.](https://github.com/CUPAXX/kubernetestraining/tree/4.6/broadcaster)
+- [4.7.](https://github.com/CUPAXX/kubernetestraining/tree/4.7/log_output)

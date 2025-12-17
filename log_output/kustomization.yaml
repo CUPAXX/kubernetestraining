@@ -8,3 +8,6 @@ resources:
   - manifests/route.yaml
 sortOptions:
   order: fifo
+images:
+  - name: PROJECT/IMAGE
+    newName: cupaxxhd/log-output-reader
