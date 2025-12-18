@@ -92,15 +92,15 @@ jobs:
           git clone https://x-access-token:${PAT}@github.com/CUPAXX/kubernetestraining-config.git
           cd kubernetestraining-config
 
-          cd broadcaster/overlays/production
+          cd broadcaster/overlays/prod
           kustomize edit set image cupaxxhd/broadcaster=cupaxxhd/broadcaster:$GITHUB_SHA
           cd -
 
-          cd todo-apps/overlays/production
+          cd todo-apps/overlays/prod
           kustomize edit set image cupaxxhd/todo-apps=cupaxxhd/todo-apps:$GITHUB_SHA
           cd -
 
-          cd hourly-image/overlays/production
+          cd hourly-image/overlays/prod
           kustomize edit set image cupaxxhd/hourly-image=cupaxxhd/hourly-image:$GITHUB_SHA
           cd -
 
