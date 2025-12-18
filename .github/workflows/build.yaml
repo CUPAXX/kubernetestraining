@@ -61,26 +61,6 @@ jobs:
         env:
           PAT: ${{ secrets.CONFIG_REPO_PAT }}
         run: |
-          cd kubernetestraining-config
-
-          kustomize edit set image cupaxxhd/hourly-image=cupaxxhd/hourly-image:$GITHUB_SHA \
-            --kustomization hourly-image/overlays/staging/kustomization.yaml
-
-          kustomize edit set image cupaxxhd/todo-apps=cupaxxhd/todo-apps:$GITHUB_SHA \
-            --kustomization todo-apps/overlays/staging/kustomization.yaml
-
-          kustomize edit set image cupaxxhd/broadcaster=cupaxxhd/broadcaster:$GITHUB_SHA \
-            --kustomization broadcaster/overlays/staging/kustomization.yaml
-
-          git commit -am "Deploy staging $GITHUB_SHA"
-          git push
-      #==============================finishing update image for staging==============================
-      #==============================starting update image for production==============================
-      - name: Update manifests Image production
-        if: startsWith(github.ref, 'refs/tags/')
-        env:
-          PAT: ${{ secrets.CONFIG_REPO_PAT }}
-        run: |
           git clone https://x-access-token:${PAT}@github.com/CUPAXX/kubernetestraining-config.git
           cd kubernetestraining-config
 
@@ -101,5 +81,33 @@ jobs:
 
           git add .
           git commit -m "Deploy staging ${GITHUB_SHA}"
+          git push
+      #==============================finishing update image for staging==============================
+      #==============================starting update image for production==============================
+      - name: Update manifests Image production
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          PAT: ${{ secrets.CONFIG_REPO_PAT }}
+        run: |
+          git clone https://x-access-token:${PAT}@github.com/CUPAXX/kubernetestraining-config.git
+          cd kubernetestraining-config
+
+          cd broadcaster/overlays/production
+          kustomize edit set image cupaxxhd/broadcaster=cupaxxhd/broadcaster:$GITHUB_SHA
+          cd -
+
+          cd todo-apps/overlays/production
+          kustomize edit set image cupaxxhd/todo-apps=cupaxxhd/todo-apps:$GITHUB_SHA
+          cd -
+
+          cd hourly-image/overlays/production
+          kustomize edit set image cupaxxhd/hourly-image=cupaxxhd/hourly-image:$GITHUB_SHA
+          cd -
+
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add .
+          git commit -m "Deploy production ${GITHUB_SHA}"
           git push
       #==============================finishing update image for production==============================
