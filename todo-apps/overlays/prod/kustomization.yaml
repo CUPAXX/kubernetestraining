@@ -3,6 +3,7 @@ kind: Kustomization
 namespace: production
 resources:
   - ../../base
+  - cronjob-backup-db.yaml
 sortOptions:
   order: fifo
 images:
