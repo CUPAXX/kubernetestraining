@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: todo-apps-production
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/CUPAXX/kubernetestraining.git
+    targetRevision: master
+    path: todo-apps/overlays/prod
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

@@ -7,6 +7,12 @@ patches:
   - target:
       kind: Deployment
       name: broadcaster
+    patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: STAGING_MODE
+          value: "false"
 sortOptions:
   order: fifo
 images:

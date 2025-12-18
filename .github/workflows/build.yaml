@@ -74,19 +74,19 @@ jobs:
         working-directory: broadcaster/overlays/prod
       #==============================finishing update image for prod==============================
 
-      - name: Deploy to staging
-        if: github.ref == 'refs/heads/master'
-        run: |
-          kustomize build hourly-image/overlays/staging | kubectl apply -f -
-          kustomize build todo-apps/overlays/staging | kubectl apply -f -
-          kustomize build broadcaster/overlays/staging | kubectl apply -f -
+      # - name: Deploy to staging
+      #   if: github.ref == 'refs/heads/master'
+      #   run: |
+      #     kustomize build hourly-image/overlays/staging | kubectl apply -f -
+      #     kustomize build todo-apps/overlays/staging | kubectl apply -f -
+      #     kustomize build broadcaster/overlays/staging | kubectl apply -f -
 
-      - name: Deploy to production
-        if: startsWith(github.ref, 'refs/tags/')
-        run: |
-          kustomize build hourly-image/overlays/prod | kubectl apply -f -
-          kustomize build todo-apps/overlays/prod | kubectl apply -f -
-          kustomize build broadcaster/overlays/prod | kubectl apply -f -
+      # - name: Deploy to production
+      #   if: startsWith(github.ref, 'refs/tags/')
+      #   run: |
+      #     kustomize build hourly-image/overlays/prod | kubectl apply -f -
+      #     kustomize build todo-apps/overlays/prod | kubectl apply -f -
+      #     kustomize build broadcaster/overlays/prod | kubectl apply -f -
 
       # - name: commit kustomization.yaml to GitHub
       #   uses: EndBug/add-and-commit@v9

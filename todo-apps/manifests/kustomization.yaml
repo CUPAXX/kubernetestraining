@@ -12,4 +12,3 @@ sortOptions:
 images:
   - name: PROJECT/IMAGE
     newName: cupaxxhd/todo-apps
-    newTag: f01053a0c17d83c771db8727d7e908088de11c3f
