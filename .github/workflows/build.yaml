@@ -67,21 +67,21 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           TAG=${GITHUB_REF_NAME}
-          kustomize edit set image cupaxxhd/hourly-image=cupaxxhd/hourly-image:$TAG
+          kustomize edit set image cupaxxhd/hourly-image=cupaxxhd/hourly-image:$GITHUB_SHA
         working-directory: hourly-image/overlays/prod
 
       - name: Update Image todo-apps production
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           TAG=${GITHUB_REF_NAME}
-          kustomize edit set image cupaxxhd/todo-apps=cupaxxhd/todo-apps:$TAG
+          kustomize edit set image cupaxxhd/todo-apps=cupaxxhd/todo-apps:$GITHUB_SHA
         working-directory: todo-apps/overlays/prod
 
       - name: Update Image broadcaster production
         if: startsWith(github.ref, 'refs/tags/')
         run: |
           TAG=${GITHUB_REF_NAME}
-          kustomize edit set image cupaxxhd/broadcaster=cupaxxhd/broadcaster:$TAG
+          kustomize edit set image cupaxxhd/broadcaster=cupaxxhd/broadcaster:$GITHUB_SHA
         working-directory: broadcaster/overlays/prod
 
       #==============================finishing update image for production==============================
