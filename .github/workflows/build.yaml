@@ -59,39 +59,6 @@ jobs:
         working-directory: broadcaster/overlays/staging
       #==============================finishing update image for staging==============================
 
-      # #==============================starting update image for prod==============================
-      # - name: Update Image hourly-image production
-      #   if: startsWith(github.ref, 'refs/tags/')
-      #   run: kustomize edit set image cupaxxhd/hourly-image=cupaxxhd/hourly-image:$GITHUB_SHA
-      #   working-directory: hourly-image/overlays/prod
-
-      # - name: Update Image todo-apps production
-      #   if: startsWith(github.ref, 'refs/tags/')
-      #   run: kustomize edit set image cupaxxhd/todo-apps=cupaxxhd/todo-apps:$GITHUB_SHA
-      #   working-directory: todo-apps/overlays/prod
-
-      # - name: Update Image broadcaster production
-      #   if: startsWith(github.ref, 'refs/tags/')
-      #   run: kustomize edit set image cupaxxhd/broadcaster=cupaxxhd/broadcaster:$GITHUB_SHA
-      #   working-directory: broadcaster/overlays/prod
-      # #==============================finishing update image for prod==============================
-
-      # - name: Update ArgoCD production applications
-      #   if: startsWith(github.ref, 'refs/tags/')
-      #   run: |
-      #     TAG=${GITHUB_REF_NAME}
-
-      #     sed -i "s|targetRevision: .*|targetRevision: refs/tags/$TAG|" argocd/applications/broadcaster-production.yaml
-      #     sed -i "s|targetRevision: .*|targetRevision: refs/tags/$TAG|" argocd/applications/todo-apps-production.yaml
-      #     sed -i "s|targetRevision: .*|targetRevision: refs/tags/$TAG|" argocd/applications/hourly-image-production.yaml
-
-      # - name: Commit ArgoCD production deployment
-      #   if: startsWith(github.ref, 'refs/tags/')
-      #   uses: EndBug/add-and-commit@v9
-      #   with:
-      #     add: argocd/applications/*.yaml
-      #     message: "Deploy production release ${{ github.ref_name }}"
-
       - name: commit kustomization.yaml to GitHub staging
         if: github.ref == 'refs/heads/master'
         uses: EndBug/add-and-commit@v9
