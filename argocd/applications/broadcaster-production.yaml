@@ -8,7 +8,7 @@ spec:
 
   source:
     repoURL: https://github.com/CUPAXX/kubernetestraining.git
-    targetRevision: master
+    targetRevision: refs/tags/INITIAL
     path: broadcaster/overlays/prod
 
   destination:
