@@ -8,7 +8,7 @@ spec:
 
   source:
     repoURL: https://github.com/CUPAXX/kubernetestraining.git
-    targetRevision: refs/tags/*
+    targetRevision: master
     path: hourly-image/overlays/prod
 
   destination:
