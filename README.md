@@ -56,3 +56,4 @@
 - [4.6.](https://github.com/CUPAXX/kubernetestraining/tree/4.6/broadcaster)
 - [4.7.](https://github.com/CUPAXX/kubernetestraining/tree/4.7/log_output)
 - [4.8.](https://github.com/CUPAXX/kubernetestraining/tree/4.8/hourly-image)
+- [4.9.](https://github.com/CUPAXX/kubernetestraining/tree/4.9/hourly-image)
