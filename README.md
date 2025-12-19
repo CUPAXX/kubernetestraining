@@ -62,3 +62,4 @@
 ### Chapter 6
 
 - [5.1.](https://github.com/CUPAXX/kubernetestraining/tree/5.1/dummysite)
+- [5.2.](https://github.com/CUPAXX/kubernetestraining/tree/5.2/exercise_5-2)
