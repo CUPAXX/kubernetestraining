@@ -52,3 +52,12 @@ kubectl port-forward svc/bookinfo-gateway-istio 8080:80
 ```
 
 then we can access the `localhost:8080/productpage`
+
+for uninstall or cleanup
+
+```bash
+curl -sL https://raw.githubusercontent.com/istio/istio/release-1.28/samples/bookinfo/platform/kube/cleanup.sh | bash
+kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.28/samples/bookinfo/platform/kube/bookinfo.yaml
+kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.28/samples/bookinfo/platform/kube/bookinfo-versions.yaml
+kubectl delete -f https://raw.githubusercontent.com/istio/istio/release-1.28/samples/bookinfo/gateway-api/bookinfo-gateway.yaml
+```
