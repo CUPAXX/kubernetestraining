@@ -58,3 +58,7 @@
 - [4.8.](https://github.com/CUPAXX/kubernetestraining/tree/4.8/hourly-image)
 - [4.9.](https://github.com/CUPAXX/kubernetestraining/tree/4.9/hourly-image)
 - [4.10.](https://github.com/CUPAXX/kubernetestraining/tree/4.10/hourly-image)
+
+### Chapter 6
+
+- [5.1.](https://github.com/CUPAXX/kubernetestraining/tree/5.1/dummysite)

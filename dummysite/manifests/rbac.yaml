@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: dummysite-controller
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: dummysite-controller
+rules:
+  # Watch DummySite CR
+  - apiGroups: ["web.example.com"]
+    resources: ["dummysites"]
+    verbs: ["get", "list", "watch"]
+
+  # ConfigMaps
+  - apiGroups: [""]
+    resources: ["configmaps"]
+    verbs: ["get", "list", "create"]
+
+  # Services
+  - apiGroups: [""]
+    resources: ["services"]
+    verbs: ["get", "list", "create"]
+
+  # Deployments
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "create"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: dummysite-controller
+subjects:
+  - kind: ServiceAccount
+    name: dummysite-controller
+roleRef:
+  kind: Role
+  name: dummysite-controller
+  apiGroup: rbac.authorization.k8s.io

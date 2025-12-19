@@ -1,0 +1,17 @@
+{
+  "name": "dummysite",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@kubernetes/client-node": "^1.4.0",
+    "axios": "^1.13.2",
+    "website-scraper": "^5.3.1"
+  }
+}
