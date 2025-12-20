@@ -24,9 +24,9 @@ spec:
                 name: postgres-config
             - secretRef:
                 name: postgres-secret
-          readinessProbe:
-            initialDelaySeconds: 10 # Initial delay until the readiness is tested
-            periodSeconds: 5 # How often to test
-            httpGet:
-              path: /ready
-              port: 3002
+          # readinessProbe:
+          #   initialDelaySeconds: 10 # Initial delay until the readiness is tested
+          #   periodSeconds: 5 # How often to test
+          #   httpGet:
+          #     path: /ready
+          #     port: 3002

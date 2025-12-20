@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: exercises
+  name: greeter-svc-1
+  labels:
+    app: greeter
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greeter
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: greeter
+        version: v1
+    spec:
+      containers:
+        - name: greeter
+          image: cupaxxhd/greeter
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: VERSION
+              value: "v1"
+            - name: PORT
+              value: "3000"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: exercises
+  name: greeter-svc-2
+  labels:
+    app: greeter
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: greeter
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: greeter
+        version: v2
+    spec:
+      containers:
+        - name: greeter
+          image: cupaxxhd/greeter
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: VERSION
+              value: "v2"
+            - name: PORT
+              value: "3000"

@@ -10,6 +10,7 @@ const port = 3000;
 const directory = path.join("/", "src", "app");
 const infoFile = path.join(directory, "config", "information.txt");
 const PING_PONG_SERVICE_URL = "http://ping-pong-svc:2345"; //local dev
+const GREETER_SERVICE_URL = "http://greeter-svc:3000"; //local dev
 // const PING_PONG_SERVICE_URL =
 //   "http://ping-pong-svc.exercises.svc.cluster.local:2345"; //GKE deployment
 const MESSAGE = process.env.MESSAGE || "No message set";
@@ -22,6 +23,7 @@ app.get("/", (req, res) => {
 app.get("/pingpong", async (req, res) => {
   try {
     const response = await axios.get(`${PING_PONG_SERVICE_URL}/`);
+    const greeterResponse = await axios.get(`${GREETER_SERVICE_URL}/`);
     const timestamp = new Date().toISOString();
     const currentString = crypto.randomUUID();
 
@@ -30,7 +32,8 @@ app.get("/pingpong", async (req, res) => {
       file content: ${INFORMATION}.\n
       env variable: MESSAGE=${MESSAGE}.\n
       ${timestamp}: ${currentString}.\n
-      Ping / Pongs: ${response.data.count}
+      Ping / Pongs: ${response.data.count}.\n
+      greeting: ${greeterResponse.data.greeting}
       `);
   } catch (error) {
     console.error(err.message);

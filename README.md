@@ -63,3 +63,4 @@
 
 - [5.1.](https://github.com/CUPAXX/kubernetestraining/tree/5.1/dummysite)
 - [5.2.](https://github.com/CUPAXX/kubernetestraining/tree/5.2/exercise_5-2)
+- [5.3.](https://github.com/CUPAXX/kubernetestraining/tree/5.3/log_output)
