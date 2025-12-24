@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: wikipedia-nginx
+  annotations:
+    sidecar.istio.io/inject: "false"
+spec:
+  volumes:
+    - name: www-data
+      emptyDir: {}
+
+  initContainers:
+    - name: init-wikipedia
+      image: curlimages/curl:8.5.0
+      command:
+        - sh
+        - -c
+        - |
+          echo "Downloading Kubernetes Wikipedia page..."
+          curl -L https://en.wikipedia.org/wiki/Kubernetes \
+            -o /data/index.html
+      volumeMounts:
+        - name: www-data
+          mountPath: /data
+
+  containers:
+    - name: nginx
+      image: nginx:1.25-alpine
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - name: www-data
+          mountPath: /usr/share/nginx/html
+
+    - name: wikipedia-sidecar
+      image: curlimages/curl:8.5.0
+      command:
+        - sh
+        - -c
+        - |
+          while true; do
+            SLEEP_TIME=$((RANDOM % 600 + 300))
+            echo "Sleeping for $SLEEP_TIME seconds..."
+            sleep $SLEEP_TIME
+
+            echo "Downloading random Wikipedia page..."
+            curl -L https://en.wikipedia.org/wiki/Special:Random \
+              -o /data/index.html
+          done
+      volumeMounts:
+        - name: www-data
+          mountPath: /data
