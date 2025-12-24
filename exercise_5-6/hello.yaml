@@ -11,4 +11,4 @@ spec:
             - containerPort: 8080
           env:
             - name: TARGET
-              value: "World"
+              value: "Knative"
